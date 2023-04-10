@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Cabinet;
 
 CREATE TABLE Cabinet
 (
@@ -6,46 +7,43 @@ CREATE TABLE Cabinet
   aval  bool NOT NULL DEFAULT true,
   PRIMARY KEY (ID)
 );
-
-
-
-CREATE TABLE Cabinet Locker Rentals
+DROP TABLE IF EXISTS Cabinet_Locker_Rentals;
+CREATE TABLE Cabinet_Locker_Rentals
 (
   ID            int     NOT NULL,
   cabinetID     int     NOT NULL,
   CustomerID    int     NOT NULL,
-  start         time    NOT NULL,
-  end           time   ,
+  startt         time    NOT NULL,
+  endd           time   ,
   fee           decimal,
   paymentMethod char   ,
   PRIMARY KEY (ID)
 );
-
+DROP TABLE IF EXISTS customer;
 CREATE TABLE customer
 (
   ID          int     NOT NULL,
   Name        varchar NOT NULL,
-  Credentials         NOT NULL,
+  Credentials  varchar       NOT NULL,
   PRIMARY KEY (ID)
 );
 
-COMMENT ON COLUMN customer.Credentials IS 'another table if needed';
-
+DROP TABLE IF EXISTS performance;
 CREATE TABLE performance
 (
   cabinetID    int  NOT NULL,
-  duration     time NOT NULL ,
+  duration     time NOT NULL,
   rentalCount  int  NOT NULL,
   totalRevenue int  NOT NULL
 );
 
-ALTER TABLE Cabinet Locker Rentals
-  ADD CONSTRAINT FK_customer_TO_Cabinet Locker Rentals
+ALTER TABLE Cabinet_Locker_Rentals
+  ADD CONSTRAINT FK_customer_TO_Cabinet_Locker_Rentals
     FOREIGN KEY (CustomerID)
     REFERENCES customer (ID);
 
-ALTER TABLE Cabinet Locker Rentals
-  ADD CONSTRAINT FK_Cabinet_TO_Cabinet Locker Rentals
+ALTER TABLE Cabinet_Locker_Rentals
+  ADD CONSTRAINT FK_Cabinet_TO_Cabinet_Locker_Rentals
     FOREIGN KEY (cabinetID)
     REFERENCES Cabinet (ID);
 
